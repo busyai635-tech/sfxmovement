@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | SFX.MOMENT - Premium Event SFX</title>
+    
+    <!-- Google Fonts (Matched to Home) -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==================== 
+           GLOBAL VARIABLES & RESET
+           ==================== */
+        :root {
+            --bg-dark: #050505;
+            --bg-card: #0f0f0f;
+            --text-white: #ffffff;
+            --text-gray: #a1a1a1;
+            --accent-gold: #FFD700;
+            --accent-blue: #00E5FF;
+            --accent-red: #DC143C;
+            --gradient-primary: linear-gradient(135deg, #FFD700, #00E5FF, #DC143C);
+            --transition: all 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* ==================== 
+           1. NAVBAR 
+           ==================== */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; 
+            padding: 1.5rem 5%; 
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo { 
+            font-size: 1.8rem; 
+            font-family: 'Oswald', sans-serif; 
+            font-weight: 700; 
+            color: white; 
+            text-decoration: none; 
+        }
+        .logo span { color: var(--accent-gold); }
+
+        .cta-btn {
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+            text-decoration: none;
+        }
+        .cta-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* ==================== 
+           2. HERO SECTION 
+           ==================== */
+        .contact-hero {
+            padding: 180px 5% 80px;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover; background-position: center;
+        }
+        .contact-hero h1 { font-size: 4.5rem; margin-bottom: 1rem; }
+        .contact-hero p { color: var(--accent-gold); font-weight: 600; letter-spacing: 5px; font-size: 0.9rem; text-transform: uppercase; }
+
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 4rem 0; }
+
+        /* ==================== 
+           3. CONTACT CARDS 
+           ==================== */
+        .info-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        .contact-card {
+            background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem 2rem; border-radius: 20px; text-align: center; transition: var(--transition);
+        }
+        .contact-card:hover {
+            transform: translateY(-10px); border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.1);
+        }
+        .contact-card i {
+            font-size: 2.5rem; background: var(--gradient-primary);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem; display: inline-block;
+        }
+        .contact-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .contact-card a { color: var(--accent-blue); font-weight: 600; text-decoration: none; font-size: 1rem; }
+
+        /* ==================== 
+           4. FORM SECTION 
+           ==================== */
+        .form-card {
+            background: #0a0a0a; padding: 4rem; border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+        .form-card h2 { font-size: 2.8rem; margin-bottom: 3rem; text-align: center; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .input-group.full { grid-column: span 2; }
+        .input-group label {
+            display: block; font-size: 0.8rem; color: var(--accent-gold);
+            text-transform: uppercase; font-weight: 700; margin-bottom: 10px; letter-spacing: 1px;
+        }
+        .form-input {
+            width: 100%; background: #111; border: 1px solid #222; border-radius: 8px;
+            padding: 15px; color: white; font-family: 'Montserrat', sans-serif; transition: var(--transition);
+        }
+        .form-input:focus { outline: none; border-color: var(--accent-blue); background: #151515; }
+
+        /* ==================== 
+           5. PREMIUM FOOTER 
+           ==================== */
+        .main-footer {
+            background-color: #050505; padding: 80px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 5rem;
+        }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 50px; }
+        .footer-brand p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.8; margin-top: 20px; }
+        .footer-socials { display: flex; gap: 15px; margin-top: 25px; }
+        .footer-socials a {
+            width: 45px; height: 45px; border-radius: 50%; background: rgba(255, 255, 255, 0.05);
+            display: flex; align-items: center; justify-content: center; color: white;
+            transition: var(--transition); border: 1px solid rgba(255, 255, 255, 0.1); text-decoration: none;
+        }
+        .footer-socials a:hover { background: var(--gradient-primary); transform: translateY(-5px); border-color: transparent; }
+        .footer-column h4 { color: var(--accent-gold); font-size: 1.2rem; margin-bottom: 30px; position: relative; }
+        .footer-column h4::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 35px; height: 2px; background: var(--accent-blue); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; font-size: 0.95rem; transition: var(--transition); }
+        .footer-links a:hover { color: var(--accent-blue); padding-left: 8px; }
+        .footer-contact-info { list-style: none; }
+        .footer-contact-info li { display: flex; gap: 15px; color: var(--text-gray); font-size: 0.95rem; margin-bottom: 20px; }
+        .footer-contact-info i { color: var(--accent-blue); margin-top: 5px; }
+        .footer-bottom {
+            padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .footer-bottom p { color: #555; font-size: 0.85rem; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .info-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .input-group.full { grid-column: span 1; }
+            .contact-hero h1 { font-size: 3rem; }
+        }
+        @media (max-width: 600px) {
+            .info-grid, .footer-grid { grid-template-columns: 1fr; }
+            .form-card { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">SFX. <span>MOMENT</span></a>
+        <div class="nav-links">
+            <a href="index.html" class="cta-btn">Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="contact-hero">
+        <p>Expert Visual Effects & Pyrotechnics</p>
+        <h1>LET'S TALK</h1>
+    </section>
+
+    <div class="container">
+        <!-- CONTACT INFO CARDS -->
+        <div class="info-grid">
+            <div class="contact-card">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Call Our Office</h3>
+                <p>Mon - Sat (10am - 8pm)</p>
+                <a href="tel:+919876543210">+91 98765 43210</a>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-envelope-open-text"></i>
+                <h3>Send an Email</h3>
+                <p>Professional SFX Enquiries</p>
+                <a href="mailto:bookings@sfxmoment.in">bookings@sfxmoment.in</a>
+            </div>
+            <div class="contact-card">
+                <i class="fab fa-whatsapp"></i>
+                <h3>Live WhatsApp</h3>
+                <p>Instant support & updates</p>
+                <a href="#">Message Us Now</a>
+            </div>
+        </div>
+
+        <!-- CONTACT FORM -->
+        <div class="form-card">
+            <h2>BOOK YOUR SFX</h2>
+            <form>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Your Full Name</label>
+                        <input type="text" class="form-input" placeholder="Enter name">
+                    </div>
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-input" placeholder="example@mail.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Event Date</label>
+                        <input type="date" class="form-input">
+                    </div>
+                    <div class="input-group">
+                        <label>Event Location</label>
+                        <input type="text" class="form-input" placeholder="e.g. Pune, Mumbai">
+                    </div>
+                    <div class="input-group full">
+                        <label>How can we help?</label>
+                        <textarea class="form-input" rows="5" placeholder="Tell us about your event vision..."></textarea>
+                    </div>
+                </div>
+                <!-- Button styled to match home page CTA -->
+                <button type="submit" class="cta-btn" style="width:100%; margin-top:20px; border-radius:10px; border:none; cursor:pointer;">SEND ENQUIRY NOW</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- LIGHT THEME MAP -->
+    <div style="width: 100%; height: 450px; margin-top: 5rem; border-top: 1px solid #222;">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.0344739699!2d73.78980323984375!3d18.524890422402484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67410b9b%3A0x828d43105d951397!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1703000000000!5m2!1sen!2sin" 
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+    </div>
+
+    <!-- PREMIUM FOOTER -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">SFX. <span>MOMENT</span></a>
+                <p>Elevating event experiences through high-impact special effects. We provide the spark that makes moments unforgettable.</p>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/sfx.moment" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="services.html">All Services</a></li>
+                    <li><a href="Contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Top Effects</h4>
+                <ul class="footer-links">
+                    <li><a href="services.html#cold-sparks">Cold Sparks</a></li>
+                    <li><a href="services.html#co2-fx">CO2 Jets</a></li>
+                    <li><a href="services.html#flame-fx">Flame FX</a></li>
+                    <li><a href="services.html#low-fog">Low Fog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Get In Touch</h4>
+                <ul class="footer-contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i><span>Pune, Maharashtra, India</span></li>
+                    <li><i class="fas fa-phone-alt"></i><span>+91 98765 43210</span></li>
+                    <li><i class="fas fa-envelope"></i><span>bookings@sfxmoment.in</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2025 SFX MOVEMENT. Designed for Excellence.</p>
+            <div style="display:flex; gap:20px;"><a href="#" style="color:#555; text-decoration:none; font-size:0.8rem;">Privacy Policy</a></div>
+        </div>
+    </footer>
+
+</body>
+</html>

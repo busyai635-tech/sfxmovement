@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFX.MOMENT| Premium Live Event Special Effects</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==================== 
+           GLOBAL VARIABLES & RESET 
+           ==================== */
+        :root {
+            --bg-dark: #050505;
+            --bg-card: #0f0f0f;
+            --text-white: #ffffff;
+            --text-gray: #a1a1a1;
+            
+            /* COLORS */
+            --accent-gold: #FFD700;       /* Sparks */
+            --accent-blue: #00E5FF;       /* CO2 / Lasers (Electric Blue) */
+            --accent-red: #DC143C;        /* Fire */
+            
+            /* GRADIENT: Gold -> Blue -> Red */
+            --gradient-primary: linear-gradient(135deg, #FFD700, #00E5FF, #DC143C);
+            --transition: all 0.4s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* Utility Classes */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-header h2 {
+            font-size: 2.5rem;
+            background: -webkit-linear-gradient(#fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-gold);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 0;
+        }
+        
+        /* Buttons */
+        .cta-btn {
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+        }
+        .cta-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
+            transform: scale(1.05);
+        }
+
+        .secondary-btn {
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: var(--transition);
+            cursor: pointer;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+        }
+        .secondary-btn:hover {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+
+        /* ==================== 
+           1. NAVBAR 
+           ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        .navbar.scrolled {
+            background: rgba(5, 5, 5, 0.95);
+            padding: 1rem 5%;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            color: white;
+            transition: var(--transition);
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .logo span { color: var(--accent-gold); }
+        .logo:hover { text-shadow: 0 0 15px var(--accent-gold); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links li a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            position: relative;
+            transition: var(--transition);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: var(--transition);
+        }
+
+        .nav-links li a:hover { color: var(--accent-blue); }
+        .nav-links li a:hover::after { width: 100%; }
+
+        .mobile-only { display: none; }
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* ==================== 
+           2. HERO SECTION 
+           ==================== */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out, transform 8s linear;
+            background-size: cover;
+            background-position: center;
+            transform: scale(1);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, #050505 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+            max-width: 1000px;
+            padding: 0 20px;
+            animation: fadeIn 1.5s ease-out;
+            margin-top: 50px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.9);
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: #f0f0f0;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            font-weight: 300;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .hero-socials {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .hero-socials a {
+            color: white;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-socials a:hover {
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            background: rgba(0, 229, 255, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+        }
+
+        /* ==================== 
+           3. PRODUCTS & SERVICES 
+           ==================== */
+        .services-section {
+            background-color: var(--bg-dark);
+            padding-bottom: 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            height: 280px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            filter: brightness(0.6);
+        }
+
+        .service-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to top, black, transparent);
+            z-index: 2;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            color: white;
+            text-align: center;
+            transform: translateY(0);
+            transition: var(--transition);
+            text-shadow: 0 2px 4px black;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.2);
+        }
+        .service-card:hover img {
+            filter: brightness(1);
+            transform: scale(1.1);
+        }
+        .service-card:hover h3 {
+            color: var(--accent-blue);
+            transform: translateY(-10px);
+        }
+
+        /* ==================== 
+           4. COMPLETE SOLUTIONS 
+           ==================== */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .solution-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .solution-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: var(--transition);
+            filter: brightness(0.7);
+        }
+
+        .solution-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 2;
+        }
+
+        .solution-text h3 {
+            font-size: 1.5rem;
+            background: rgba(0,0,0,0.6);
+            padding: 5px 15px;
+            backdrop-filter: blur(2px);
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+
+        .solution-card:hover img {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+
+        /* ==================== 
+           5. ABOUT US (FIXED ALIGNMENT) 
+           ==================== */
+        .about-section {
+            background: #000;
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center; 
+            gap: 4rem;
+            padding: 5rem 0;
+        }
+
+        .about-visual {
+            flex: 1; 
+            height: 400px;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        /* Video / Image Styling */
+        .about-visual video.about-media, 
+        .about-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .about-visual:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+        }
+
+        .about-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-content h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: white;
+            text-align: left;
+        }
+
+        .about-content p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* ==================== 
+           6. WHY CHOOSE US 
+           ==================== */
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #121212, #0a0a0a);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.03);
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            /* Gradient Text: Gold to Blue */
+            background: -webkit-linear-gradient(var(--accent-gold), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: #888;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        /* ==================== 
+           7. CONTACT SECTION 
+           ==================== */
+        .contact-section {
+            background: linear-gradient(to top, #000, #0c0c0c);
+            position: relative;
+            padding-bottom: 0;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(0, 229, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-blue);
+            font-size: 1.4rem;
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .info-item:hover .info-icon {
+            background: var(--accent-blue);
+            color: black;
+            box-shadow: 0 0 20px var(--accent-blue);
+        }
+
+        .info-text h4 { font-size: 1.2rem; color: white; margin-bottom: 0.3rem; }
+        .info-text p { color: var(--text-gray); font-size: 1rem; }
+
+        .contact-form {
+            background: #121212;
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #ccc;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 15px;
+            background: #080808;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+            background: #111;
+        }
+
+        textarea.form-control {
+            resize: none;
+            height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+        }
+
+        /* ==================== 
+           RESPONSIVENESS 
+           ==================== */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3rem; }
+            .services-grid { grid-template-columns: repeat(3, 1fr); }
+            .solutions-grid { grid-template-columns: repeat(2, 1fr); }
+            .why-us-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            /* About Section Responsive */
+            .about-container { flex-direction: column; gap: 2rem; }
+            .about-visual, .about-content { width: 100%; }
+            .about-visual { height: 350px; }
+            .about-content { padding: 0; text-align: center; }
+            .about-content h2 { text-align: center; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem 5%; background: rgba(0,0,0,0.9); }
+            .desktop-only { display: none !important; }
+            .mobile-only { display: block; }
+            .hamburger { display: block; z-index: 1001; }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: #0f0f0f;
+                flex-direction: column;
+                justify-content: center;
+                transition: 0.4s;
+                border-left: 1px solid #222;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.9);
+            }
+            .nav-links.active { right: 0; }
+            
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .contact-form { padding: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-btns { flex-direction: column; width: 100%; }
+            .services-grid { grid-template-columns: 1fr; }
+            .solutions-grid { grid-template-columns: 1fr; }
+            .why-us-grid { grid-template-columns: 1fr; }
+            .service-card { height: 220px; }
+        }
+        /* ==================== 
+           5. PREMIUM FOOTER 
+           ==================== */
+        .main-footer {
+            background-color: #050505; padding: 80px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 5rem;
+        }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 50px; }
+        .footer-brand p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.8; margin-top: 20px; }
+        .footer-socials { display: flex; gap: 15px; margin-top: 25px; }
+        .footer-socials a {
+            width: 45px; height: 45px; border-radius: 50%; background: rgba(255, 255, 255, 0.05);
+            display: flex; align-items: center; justify-content: center; color: white;
+            transition: var(--transition); border: 1px solid rgba(255, 255, 255, 0.1); text-decoration: none;
+        }
+        .footer-socials a:hover { background: var(--gradient-primary); transform: translateY(-5px); border-color: transparent; }
+        .footer-column h4 { color: var(--accent-gold); font-size: 1.2rem; margin-bottom: 30px; position: relative; }
+        .footer-column h4::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 35px; height: 2px; background: var(--accent-blue); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; font-size: 0.95rem; transition: var(--transition); }
+        .footer-links a:hover { color: var(--accent-blue); padding-left: 8px; }
+        .footer-contact-info { list-style: none; }
+        .footer-contact-info li { display: flex; gap: 15px; color: var(--text-gray); font-size: 0.95rem; margin-bottom: 20px; }
+        .footer-contact-info i { color: var(--accent-blue); margin-top: 5px; }
+        .footer-bottom {
+            padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .footer-bottom p { color: #555; font-size: 0.85rem; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .info-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .input-group.full { grid-column: span 1; }
+            .contact-hero h1 { font-size: 3rem; }
+        }
+        @media (max-width: 600px) {
+            .info-grid, .footer-grid { grid-template-columns: 1fr; }
+            .form-card { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV BAR -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">SFX.<span>MOMENT</span></a>
+        
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li class="mobile-only"><a href="Contact.html"><button class="cta-btn">Enquire</button></a></li>
+        </ul>
+
+        <div class="desktop-only" style="display: flex;">
+            <a href="Contact.html"><button class="cta-btn">Send Enquiry</button></a>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-slider">
+            <!-- 1. LIVE FIREWORKS OVER CITY/CROWD -->
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1498931299472-f7a63a5a1cfa?auto=format&fit=crop&w=1920&q=80');"></div>
+            
+            <!-- 2. WEDDING COUPLE WITH SPARKLERS/FIREWORKS -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+            
+            <!-- 3. LIVE CONCERT PYROTECHNICS & LIGHTS -->
+            <div class="slide" style="background-image: url('Assets/liveconsert2');"></div>
+            
+            <!-- 4. STAGE FLAME & CO2 EFFECTS -->
+            <div class="slide" style="background-image: url('Assets/sparks');"></div>
+        </div>
+        
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h1>IGNITE THE SKY<br>CREATE THE MOMENT</h1>
+            <p>Premium SFX Fireworks & Visual Effects for Concerts, Weddings, and Global Events.</p>
+            <div class="hero-btns">
+                <a href="Contact.html"><button class="cta-btn">Book Your Date</button></a>
+                <a href="services.html"><button class="secondary-btn">Explore FX</button></a>
+            </div>
+
+            <!-- SOCIAL ICONS -->
+            <div class="hero-socials">
+                <a href="https://www.instagram.com/sfx.moment?igsh=cXRkeDRtMXlvcWw5" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS & SERVICES -->
+   <section class="services-section" id="services">
+    <div class="container">
+        <div class="section-header">
+            <h2>WHAT WE OFFER</h2>
+        </div>
+        
+        <div class="services-grid">
+            <!-- Special Entry -->
+            <a href="services.html#Special Entry" class="service-card-wrapper">
+                <div class="service-card">
+                    <img src="Assets/specialEntry.jpg" alt="Special Entry">
+                    <div class="service-info"><h3>SPECIAL ENTRY</h3></div>
+                </div>
+            </a>
+
+            <!-- CO2 FX -->
+            <a href="services.html#co2-fx" class="service-card-wrapper">
+                <div class="service-card">
+                    <img src="/Assets/CO2SFX.jpg" alt="CO2 Fx">
+                    <div class="service-info"><h3>CO₂ FX</h3></div>
+                </div>
+            </a>
+
+            <!-- Cold Sparks -->
+            <a href="services.html#cold-sparks" class="service-card-wrapper">
+                <div class="service-card">
+                    <img src="Assets/ColdSmoke.jpg" alt="Sparkler Effects">
+                    <div class="service-info"><h3>COLD SPARKS</h3></div>
+                </div>
+            </a>
+
+            <!-- Confetti FX -->
+            <a href="services.html#confetti-fx" class="service-card-wrapper">
+                <div class="service-card">
+                    <img src="Assets/confetti" alt="Confetti Fx">
+                    <div class="service-info"><h3>CONFETTI FX</h3></div>
+                </div>
+            </a>
+
+            <!-- Snow FX -->
+            <a href="services.html#snow-fx" class="service-card-wrapper">
+                <div class="service-card">
+                    <img src="Assets/SNOWFX" alt="Snow Fx">
+                    <div class="service-info"><h3>SNOW FX</h3></div>
+                </div>
+            </a>
+
+            <!-- Flame FX -->
+            <a href="services.html#flame-fx" class="service-card-wrapper">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1496337589254-7e19d01cec44?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Flame Fx">
+                    <div class="service-info"><h3>FLAME FX</h3></div>
+                </div>
+            </a>
+
+            <!-- Bubble FX -->
+            <a href="services.html#bubble-fx" class="service-card-wrapper">
+                <div class="service-card">
+                    <img src="Assets/bouble fx" alt="Bubble Fx">
+                    <div class="service-info"><h3>BUBBLE FX</h3></div>
+                </div>
+            </a>
+
+            <!-- Low Fog -->
+            <a href="services.html#low-fog" class="service-card-wrapper">
+                <div class="service-card">
+                    <img src="Assets/logFog" alt="Low Fog Fx">
+                    <div class="service-info"><h3>LOW FOG</h3></div>
+                </div>
+            </a>
+
+            <!-- Colour FX -->
+            <a href="services.html#color-fx" class="service-card-wrapper">
+                <div class="service-card">
+                    <img src="Assets/color fx" alt="Colour Fx">
+                    <div class="service-info"><h3>COLOUR FX</h3></div>
+                </div>
+            </a>
+
+            <!-- Fire Show -->
+            <a href="services.html#fire-show" class="service-card-wrapper">
+                <div class="service-card">
+                    <img src="Assets/FIreshow.jpg" alt="Fire Show">
+                    <div class="service-info"><h3>FIRE SHOW</h3></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+    <!-- SOLUTIONS SECTION -->
+    <section class="solutions-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>WE ARE SPECIALIZES WITH</h2>
+            </div>
+            
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <img src="Assets/wedding2" alt="Wedding">
+                    <div class="solution-text"><h3>WEDDING</h3></div>
+                    
+                </div>
+                <div class="solution-card">
+                    <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Concerts">
+                    <div class="solution-text"><h3>CONCERTS</h3></div>
+                </div>
+                <div class="solution-card">
+                    <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Corporates">
+                    <div class="solution-text"><h3>CORPORATE</h3></div>
+                </div>
+                <div class="solution-card">
+                    <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Club">
+                    <div class="solution-text"><h3>CLUB</h3></div>
+                </div>
+                <div class="solution-card">
+                    <img src="Assets/Festivals" alt="Festivals">
+                    <div class="solution-text"><h3>FESTIVALS</h3></div>
+                </div>
+                <div class="solution-card">
+                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Films">
+                    <div class="solution-text"><h3>FILMS</h3></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US SECTION (FIXED) -->
+    <section class="about-section" id="about">
+        <div class="container about-container">
+            <div class="about-visual">
+                <!-- Video with CSS Class for styling -->
+                <video 
+                    src="Assets/LOGOVCSFX.mp4" 
+                    autoplay 
+                    muted 
+                    loop 
+                    playsinline 
+                    class="about-media">
+                    <!-- Fallback if video fails -->
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="about-content">
+                <h2>ABOUT US</h2>
+                <p>
+                    <strong>SFX MOVEMENT</strong> is a premier event special effects company delivering unforgettable experiences through high-impact SFX and fireworks. We specialize in innovative, high-quality effects tailored to our clients’ vision.
+                    <br><br>
+                    Our philosophy is simple: <strong>Effects should evoke emotion.</strong> We ensure every spark is timed to perfection and every blast is executed with absolute safety.
+                </p>
+                <!-- Linked to the separate page -->
+                <a href="about.html"><button class="secondary-btn" style="border-color: var(--accent-gold); color: var(--accent-gold);">Read Our Full Story</button></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="why-us-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>WHY CHOOSE US</h2>
+            </div>
+            
+            <div class="why-us-grid">
+                <div class="feature-card">
+                    <i class="fas fa-medal feature-icon"></i>
+                    <h3>Quality</h3>
+                    <p>Highest-quality equipment and materials for safe, reliable effects.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-headset feature-icon"></i>
+                    <h3>Customer Service</h3>
+                    <p>Close collaboration to meet exact client expectations.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-wallet feature-icon"></i>
+                    <h3>Cost-effective</h3>
+                    <p>Competitive pricing for wide client accessibility.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-tie feature-icon"></i>
+                    <h3>Professionalism</h3>
+                    <p>Integrity, reliability, and accountability at every stage.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3>Team Work</h3>
+                    <p>Seamless execution through collaboration and communication.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lightbulb feature-icon"></i>
+                    <h3>Experience & Insights</h3>
+                    <p>Years of industry expertise delivering impactful effects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION 
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>CONTACT US</h2>
+            </div>
+
+            <div class="contact-layout">
+                 Left Column: Info 
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="info-text">
+                            <h4>Address</h4>
+                            <p>123 Cinematic Lane, Event City, EX 5000</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="info-text">
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="info-text">
+                            <h4>Email</h4>
+                            <p>bookings@ignitesfx.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="info-text">
+                            <h4>WhatsApp</h4>
+                            <p>Chat with us instantly</p>
+                        </div>
+                    </div>
+                </div>
+
+                 Right Column: Form 
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="Enter your phone">
+                        </div>
+                        <div class="form-group">
+                            <label>Event Type</label>
+                            <select class="form-control" style="background: #080808; color: #fff;">
+                                <option>Wedding</option>
+                                <option>Concert</option>
+                                <option>Corporate</option>
+                                <option>Festival</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea class="form-control" placeholder="Tell us about your event vision..."></textarea>
+                        </div>
+                        <button type="submit" class="cta-btn submit-btn">Send Enquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    -->
+    
+        
+        <!-- PREMIUM FOOTER -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">SFX.<span>MOMENT</span></a>
+                <p>Elevating event experiences through high-impact special effects. We provide the spark that makes moments unforgettable.</p>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/sfx.moment" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="services.html">All Services</a></li>
+                    <li><a href="Contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Top Effects</h4>
+                <ul class="footer-links">
+                    <li><a href="services.html#cold-sparks">Cold Sparks</a></li>
+                    <li><a href="services.html#co2-fx">CO2 Jets</a></li>
+                    <li><a href="services.html#flame-fx">Flame FX</a></li>
+                    <li><a href="services.html#low-fog">Low Fog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Get In Touch</h4>
+                <ul class="footer-contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i><span>Pune, Maharashtra, India</span></li>
+                    <li><i class="fas fa-phone-alt"></i><span>+91 98765 43210</span></li>
+                    <li><i class="fas fa-envelope"></i><span>bookings@sfxmoment.in</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2025 SFX MOVEMENT. Designed for Excellence.</p>
+            <div style="display:flex; gap:20px;"><a href="#" style="color:#555; text-decoration:none; font-size:0.8rem;">Privacy Policy</a></div>
+        </div>
+    </footer>
+    </section>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. HERO SLIDER LOGIC
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        const slideInterval = 6000; 
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, slideInterval);
+
+        // 2. NAVBAR SCROLL EFFECT
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 3. MOBILE MENU TOGGLE
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const links = document.querySelectorAll('.nav-links li');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('toggle');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

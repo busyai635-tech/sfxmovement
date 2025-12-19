@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | SFX.MOMENT - Premium Event Effects</title>
+    <meta name="description" content="Explore our premium special effects including Cold Sparks, CO2, Flame FX, and more for concerts, weddings, and events.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Reusing your Global Variables */
+        :root {
+            --bg-dark: #050505;
+            --bg-card: #0f0f0f;
+            --text-white: #ffffff;
+            --text-gray: #a1a1a1;
+            --accent-gold: #FFD700;
+            --accent-blue: #00E5FF;
+            --accent-red: #DC143C;
+            --gradient-primary: linear-gradient(135deg, #FFD700, #00E5FF, #DC143C);
+            --transition: all 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+
+        /* Navbar Styling (Matching your Home Page) */
+        .navbar {
+            position: fixed; top: 0; width: 100%; padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .logo { font-size: 1.8rem; font-family: 'Oswald', sans-serif; font-weight: 700; color: white; text-decoration: none; }
+        .logo span { color: var(--accent-gold); }
+
+        /* Services Hero */
+        .services-hero {
+            padding: 180px 5% 60px;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .services-hero h1 { font-size: 3.5rem; letter-spacing: 3px; margin-bottom: 1rem; }
+        .services-hero p { color: var(--text-gray); max-width: 700px; margin: 0 auto; font-size: 1.1rem; }
+
+        .container { width: 90%; max-width: 1400px; margin: 0 auto; padding: 4rem 0; }
+
+        /* 11 Services Grid Navigation */
+        .service-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .nav-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 12px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .nav-card i { font-size: 2.5rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.2);
+        }
+        .nav-card span { font-family: 'Oswald'; font-weight: 500; font-size: 1rem; letter-spacing: 1px; }
+
+        /* Detailed Section Styling */
+        .detail-section {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-bottom: 8rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s all ease-out;
+        }
+        .detail-section.visible { opacity: 1; transform: translateY(0); }
+        .detail-section:nth-child(even) { flex-direction: row-reverse; }
+
+        .detail-image {
+            flex: 1;
+            height: 450px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .detail-image img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .detail-image:hover img { transform: scale(1.05); }
+
+        .detail-content { flex: 1; }
+        .detail-content h2 { font-size: 2.8rem; margin-bottom: 1.5rem; color: var(--accent-gold); }
+        .detail-content p { color: var(--text-gray); font-size: 1.1rem; margin-bottom: 2rem; }
+        .detail-content ul { margin-bottom: 2rem; }
+        .detail-content ul li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; }
+        .detail-content ul li i { color: var(--accent-blue); font-size: 0.9rem; }
+
+        .cta-btn {
+            padding: 12px 30px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 50px; height: 50px; background: var(--accent-blue);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: black; text-decoration: none; z-index: 100; transition: 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .detail-section, .detail-section:nth-child(even) { flex-direction: column; gap: 2rem; }
+            .detail-image { width: 100%; height: 300px; }
+            .services-hero h1 { font-size: 2.5rem; }
+        }
+        /* ==================== 
+           5. PREMIUM FOOTER 
+           ==================== */
+        .main-footer {
+            background-color: #050505; padding: 80px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 5rem;
+        }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 50px; }
+        .footer-brand p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.8; margin-top: 20px; }
+        .footer-socials { display: flex; gap: 15px; margin-top: 25px; }
+        .footer-socials a {
+            width: 45px; height: 45px; border-radius: 50%; background: rgba(255, 255, 255, 0.05);
+            display: flex; align-items: center; justify-content: center; color: white;
+            transition: var(--transition); border: 1px solid rgba(255, 255, 255, 0.1); text-decoration: none;
+        }
+        .footer-socials a:hover { background: var(--gradient-primary); transform: translateY(-5px); border-color: transparent; }
+        .footer-column h4 { color: var(--accent-gold); font-size: 1.2rem; margin-bottom: 30px; position: relative; }
+        .footer-column h4::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 35px; height: 2px; background: var(--accent-blue); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a { color: var(--text-gray); text-decoration: none; font-size: 0.95rem; transition: var(--transition); }
+        .footer-links a:hover { color: var(--accent-blue); padding-left: 8px; }
+        .footer-contact-info { list-style: none; }
+        .footer-contact-info li { display: flex; gap: 15px; color: var(--text-gray); font-size: 0.95rem; margin-bottom: 20px; }
+        .footer-contact-info i { color: var(--accent-blue); margin-top: 5px; }
+        .footer-bottom {
+            padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .footer-bottom p { color: #555; font-size: 0.85rem; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .info-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .input-group.full { grid-column: span 1; }
+            .contact-hero h1 { font-size: 3rem; }
+        }
+        @media (max-width: 600px) {
+            .info-grid, .footer-grid { grid-template-columns: 1fr; }
+            .form-card { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">SFX.<span>MOMENT</span></a>
+        <div class="nav-links">
+            <a href="index.html" class="cta-btn">Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="services-hero">
+        <h1>OUR SFX ARSENAL</h1>
+        <p>From stadium-filling fireballs to elegant wedding sparkles, we provide the highest grade special effects equipment for any occasion.</p>
+    </header>
+
+    <div class="container">
+        <!-- 11 SERVICE CLICKABLE CARDS -->
+        <div class="service-nav-grid">
+            <a href="#" class="nav-card"><i class="fas fa-door-open"></i><span>Special Entry</span></a>
+            <a href="#co2-fx" class="nav-card"><i class="fas fa-wind"></i><span>CO₂ FX</span></a>
+            <a href="#cold-sparks" class="nav-card"><i class="fas fa-bolt"></i><span>Cold Sparks</span></a>
+            <a href="#confetti-fx" class="nav-card"><i class="fas fa-icons"></i><span>Confetti FX</span></a>
+            <a href="#snow-fx" class="nav-card"><i class="fas fa-snowflake"></i><span>Snow FX</span></a>
+            <a href="#flame-fx" class="nav-card"><i class="fas fa-fire"></i><span>Flame FX</span></a>
+            <a href="#bubble-fx" class="nav-card"><i class="fas fa-circle-notch"></i><span>Bubble FX</span></a>
+            <a href="#low-fog" class="nav-card"><i class="fas fa-smog"></i><span>Low Fog</span></a>
+            <a href="#color-fx" class="nav-card"><i class="fas fa-palette"></i><span>Colour FX</span></a>
+            <a href="#fire-show" class="nav-card"><i class="fas fa-fire-extinguisher"></i><span>Fire Show</span></a>
+            
+        </div>
+
+        <!-- DETAILED SECTIONS -->
+        
+        <!-- 1. Special Entry -->
+        <section id="special-entry" class="detail-section">
+            <div class="detail-image">
+                <img src="Assets/specialEntry.jpg" alt="Special Entry SFX">
+            </div>
+            <div class="detail-content">
+                <h2>Special Entry</h2>
+                <p>Make an entrance that no one will ever forget. We combine multiple effects to create a grand reveal for brides, grooms, or keynote speakers.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Custom Choreography</li>
+                    <li><i class="fas fa-check"></i> Synchronized Music & Lighting</li>
+                    <li><i class="fas fa-check"></i> Perfect for Weddings and Corporate Awards</li>
+                </ul>
+                <a href="Contact.html" class="cta-btn">Enquire Now</a>
+            </div>
+        </section>
+
+        <!-- 2. CO2 FX -->
+        <section id="co2-fx" class="detail-section">
+            <div class="detail-image">
+                <img src="/Assets/CO2SFX.jpg" alt="CO2 Jets">
+            </div>
+            <div class="detail-content">
+                <h2>CO₂ FX</h2>
+                <p>Instant plumes of white "smoke" that disappear in seconds. Our high-pressure CO2 jets are a staple for high-energy music festivals and club events.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Reach heights of up to 8-10 meters</li>
+                    <li><i class="fas fa-check"></i> Cryogenic cooling effect for the crowd</li>
+                    <li><i class="fas fa-check"></i> Handheld CO2 Guns available</li>
+                </ul>
+                <a href="Contact.html" class="cta-btn">Book CO2</a>
+            </div>
+        </section>
+
+        <!-- 3. Cold Sparks -->
+        <section id="cold-sparks" class="detail-section">
+            <div class="detail-image">
+                <img src="Assets/ColdSmoke.jpg" alt="Cold Sparklers">
+            </div>
+            <div class="detail-content">
+                <h2>Cold Sparks</h2>
+                <p>Indoor-safe pyrotechnics. These machines produce non-hazardous, touch-safe sparks that look exactly like traditional fireworks without the fire risk.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> No smoke and odorless</li>
+                    <li><i class="fas fa-check"></i> Safe to use near fabrics and people</li>
+                    <li><i class="fas fa-check"></i> Adjustable height controls</li>
+                </ul>
+                <a href="Contact.html" class="cta-btn">Add Sparkle</a>
+            </div>
+        </section>
+
+        <!-- 4. Confetti FX -->
+        <section id="confetti-fx" class="detail-section">
+            <div class="detail-image">
+                <img src="Assets/confetti" alt="Confetti Canon">
+            </div>
+            <div class="detail-content">
+                <h2>Confetti FX</h2>
+                <p>Celebrate the climax of your event with a massive burst of color. From slow-fall petals to metallic streamers, we have every option imaginable.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Eco-friendly biodegradable paper</li>
+                    <li><i class="fas fa-check"></i> Continuous blowers or single-shot canons</li>
+                    <li><i class="fas fa-check"></i> Custom color matching for brands</li>
+                </ul>
+                <a href="Contact.html" class="cta-btn">Request Quote</a>
+            </div>
+        </section>
+
+        <!-- 5. Snow FX -->
+        <section id="snow-fx" class="detail-section">
+            <div class="detail-image">
+                <img src="Assets/SNOWFX" alt="Artificial Snow">
+            </div>
+            <div class="detail-content">
+                <h2>Snow FX</h2>
+                <p>Create a winter wonderland anywhere, regardless of the season. Our professional snow machines create realistic-looking foam snow that is dry to the touch.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Non-slippery and non-toxic</li>
+                    <li><i class="fas fa-check"></i> Evaporates without leaving residue</li>
+                    <li><i class="fas fa-check"></i> Quiet operation for film & theater</li>
+                </ul>
+                <a href="Contact.html" class="cta-btn">Create Winter</a>
+            </div>
+        </section>
+
+        <!-- 6. Flame FX -->
+        <section id="flame-fx" class="detail-section">
+            <div class="detail-image">
+                <img src="https://images.unsplash.com/photo-1496337589254-7e19d01cec44?auto=format&fit=crop&w=800&q=80" alt="Flame Projectors">
+            </div>
+            <div class="detail-content">
+                <h2>Flame FX</h2>
+                <p>Real fire for maximum impact. Our liquid and gas flame projectors produce massive pillars of fire synchronized to your music's beat.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Multi-colored flames available</li>
+                    <li><i class="fas fa-check"></i> Advanced safety shut-off systems</li>
+                    <li><i class="fas fa-check"></i> Outdoor and high-ceiling indoor use</li>
+                </ul>
+                <a href="Contact.html" class="cta-btn">Heat Things Up</a>
+            </div>
+        </section>
+
+        <!-- 7. Bubble FX -->
+        <section id="bubble-fx" class="detail-section">
+            <div class="detail-image">
+                <img src="Assets/bouble fx" alt="Bubble Machines">
+            </div>
+            <div class="detail-content">
+                <h2>Bubble FX</h2>
+                <p>Magical and whimsical. Our high-output bubble machines fill the air with thousands of bubbles per minute, perfect for first dances or kids' events.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Smoke-filled bubble options</li>
+                    <li><i class="fas fa-check"></i> Massive output for outdoor stages</li>
+                    <li><i class="fas fa-check"></i> Safe, non-staining fluid</li>
+                </ul>
+                <a href="Contact.html" class="cta-btn">See Options</a>
+            </div>
+        </section>
+
+        <!-- 8. Low Fog -->
+        <section id="low-fog" class="detail-section">
+            <div class="detail-image">
+                <img src="Assets/logFog" alt="Dancing on Clouds">
+            </div>
+            <div class="detail-content">
+                <h2>Low Fog (Dancing on Clouds)</h2>
+                <p>The "Dancing on Clouds" effect is the ultimate romantic touch for wedding first dances. A thick layer of fog that stays strictly on the floor.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Dry Ice based (highest quality)</li>
+                    <li><i class="fas fa-check"></i> Won't trigger fire alarms</li>
+                    <li><i class="fas fa-check"></i> Pure white, knee-high coverage</li>
+                </ul>
+                <a href="Contact.html" class="cta-btn">Book Fog</a>
+            </div>
+        </section>
+
+        <!-- 9. Colour FX -->
+        <section id="color-fx" class="detail-section">
+            <div class="detail-image">
+                <img src="Assets/color fx" alt="Color Smoke">
+            </div>
+            <div class="detail-content">
+                <h2>Colour FX</h2>
+                <p>Vibrant color smoke and powders for daytime events, music videos, and gender reveals. Highly photogenic and impactful.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Daytime visible effects</li>
+                    <li><i class="fas fa-check"></i> Non-toxic colored powders</li>
+                    <li><i class="fas fa-check"></i> Great for "Holi" themes and sports</li>
+                </ul>
+                <a href="Contact.html" class="cta-btn">Add Color</a>
+            </div>
+        </section>
+
+        <!-- 10. Fire Show -->
+        <section id="fire-show" class="detail-section">
+            <div class="detail-image">
+                <img src="Assets/FIreshow.jpg" alt="Fire Dancers">
+            </div>
+            <div class="detail-content">
+                <h2>Fire Show</h2>
+                <p>Live performance art meets SFX. Our professional fire artists perform choreographed routines with breathing, spinning, and fire manipulation.</p>
+                <ul>
+                    <li><i class="fas fa-check"></i> Trained professional performers</li>
+                    <li><i class="fas fa-check"></i> Full insurance and safety protocols</li>
+                    <li><i class="fas fa-check"></i> Integrated with pyrotechnics</li>
+                </ul>
+                <a href="Contact.html" class="cta-btn">Book Show</a>
+            </div>
+        </section>
+
+        
+    </div>
+
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- PREMIUM FOOTER -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">SFX.<span>MOMENT</span></a>
+                <p>Elevating event experiences through high-impact special effects. We provide the spark that makes moments unforgettable.</p>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/sfx.moment" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="services.html">All Services</a></li>
+                    <li><a href="Contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Top Effects</h4>
+                <ul class="footer-links">
+                    <li><a href="services.html#cold-sparks">Cold Sparks</a></li>
+                    <li><a href="services.html#co2-fx">CO2 Jets</a></li>
+                    <li><a href="services.html#flame-fx">Flame FX</a></li>
+                    <li><a href="services.html#low-fog">Low Fog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Get In Touch</h4>
+                <ul class="footer-contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i><span>Pune, Maharashtra, India</span></li>
+                    <li><i class="fas fa-phone-alt"></i><span>+91 98765 43210</span></li>
+                    <li><i class="fas fa-envelope"></i><span>bookings@sfxmoment.in</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2025 SFX MOVEMENT. Designed for Excellence.</p>
+            <div style="display:flex; gap:20px;"><a href="#" style="color:#555; text-decoration:none; font-size:0.8rem;">Privacy Policy</a></div>
+        </div>
+    <script>
+        // Intersection Observer for fade-in effect
+        const sections = document.querySelectorAll('.detail-section');
+        const options = { threshold: 0.2 };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, options);
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+</body>
+</html>
